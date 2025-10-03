@@ -1,0 +1,27 @@
+.App { max-width: 900px; margin: 0 auto; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: #0f172a; }
+header { text-align: left; margin-bottom: 16px; }
+.subtitle { color: #64748b; margin: 4px 0 0 0; }
+
+.panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(2,6,23,0.04); }
+.row { display: grid; grid-template-columns: 1fr 1.2fr 1fr 1.2fr auto; gap: 12px; align-items: end; }
+label { font-weight: 600; color: #334155; }
+input { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
+button { padding: 10px 14px; background: #2563eb; color: #fff; border: 0; border-radius: 8px; cursor: pointer; font-weight: 600; }
+button[disabled] { background: #94a3b8; cursor: not-allowed; }
+.error { margin-top: 8px; color: #b91c1c; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.score { display: flex; align-items: center; gap: 12px; }
+.score-value { font-size: 40px; font-weight: 800; color: #0f172a; }
+.score-badge { padding: 6px 10px; border-radius: 999px; font-weight: 700; font-size: 12px; }
+.score-badge.good { background: #dcfce7; color: #166534; }
+.score-badge.warn { background: #fef9c3; color: #854d0e; }
+.score-badge.bad { background: #fee2e2; color: #991b1b; }
+.meta { margin-top: 12px; color: #475569; display: grid; grid-template-columns: repeat(3, auto); gap: 12px; }
+
+.factor { margin-bottom: 10px; }
+.factor-header { display: flex; justify-content: space-between; font-weight: 600; color: #334155; margin-bottom: 4px; }
+.factor-value { color: #475569; }
+.bar { height: 10px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); }
+.hint { margin-top: 8px; color: #64748b; font-size: 12px; }
