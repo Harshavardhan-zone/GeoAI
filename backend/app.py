@@ -501,14 +501,15 @@ import time
 from typing import Optional, Dict
 
 from integrations import (
-	compute_suitability_score,
-	estimate_flood_risk_score,
-	compute_proximity_score,
-	estimate_landslide_risk_score,
-	estimate_water_proximity_score,
-	estimate_pollution_score,
-	infer_landuse_score,
-	estimate_soil_quality_score,
+    compute_suitability_score,
+    estimate_flood_risk_score,
+    compute_proximity_score,
+    estimate_landslide_risk_score,
+    estimate_water_proximity_score,
+    estimate_pollution_score,
+    infer_landuse_score,
+    estimate_soil_quality_score,
+    estimate_rainfall_score,
 )
 
 # Set up logging
@@ -718,18 +719,12 @@ def suitability():
         latitude = float(data.get("latitude", 17.3850))
         longitude = float(data.get("longitude", 78.4867))
 
-        # Use existing rainfall normalization as a proxy rainfall_score
-        weather_data = ingest_weather_data(latitude, longitude)
-        prepare_data()
-
-        latest_with_norm = collection.find({"data.normalized_rainfall": {"$exists": True}}).sort("_id", -1).limit(1)
-        latest_doc = next(iter(latest_with_norm), None)
-        if not latest_doc:
-            latest_any = collection.find({"data": {"$exists": True}}).sort("_id", -1).limit(1)
-            latest_doc = next(iter(latest_any), {}) or {}
-
-        rainfall_norm = float((latest_doc.get("data") or {}).get("normalized_rainfall", 0.5))
-        rainfall_score: Optional[float] = rainfall_norm * 100.0
+        # Compute rainfall score via adapter (last 60 days precipitation)
+        try:
+            rainfall_score, rainfall_total_mm_60d = estimate_rainfall_score(latitude, longitude)
+        except Exception as e:
+            logger.error(f"rainfall_score error: {e}")
+            rainfall_score, rainfall_total_mm_60d = 50.0, None
 
         # Defensive wrappers for external adapters
         try:
@@ -819,6 +814,7 @@ def suitability():
             },
             "evidence": {
                 "water_distance_km": water_distance_km,
+                "rainfall_total_mm_60d": rainfall_total_mm_60d,
             },
             "label": label,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S IST"),

@@ -14,6 +14,7 @@ from .water_adapter import estimate_water_proximity_score
 from .pollution_adapter import estimate_pollution_score
 from .landuse_adapter import infer_landuse_score
 from .soil_adapter import estimate_soil_quality_score
+from .rainfall_adapter import estimate_rainfall_score
 
 __all__ = [
 	"get_workspace_root",
@@ -26,6 +27,7 @@ __all__ = [
 	"estimate_pollution_score",
 	"infer_landuse_score",
 	"estimate_soil_quality_score",
+	"estimate_rainfall_score",
 ]
 
 

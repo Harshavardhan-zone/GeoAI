@@ -151,7 +151,7 @@ export default function LandSuitabilityChecker() {
 
           <div className="panel">
             <h2>Factor Breakdown (0–100)</h2>
-            <FactorBar label="Rainfall (normalized)" value={factors.rainfall} />
+            <FactorBar label="Rainfall (last 60d)" value={factors.rainfall} />
             <FactorBar label="Flood Safety" value={factors.flood} />
             <FactorBar label="Landslide Safety" value={factors.landslide} />
             <FactorBar label="Soil Quality" value={factors.soil} />
@@ -163,6 +163,36 @@ export default function LandSuitabilityChecker() {
           </div>
         </div>
       )}
+      {/* TEAM SECTION */}
+      <div className="panel" style={{ marginTop: '16px' }}>
+        <h2>Project Team</h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '12px'
+        }}>
+          <div className="card" style={{ padding: '12px', borderRadius: 8, background: '#1b1f2a', border: '1px solid #2f3b52' }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#f5f7fb' }}>Adepu Vaishnavi</div>
+            <div style={{ color: '#c9d4f1' }}></div>
+          </div>
+          <div className="card" style={{ padding: '12px', borderRadius: 8, background: '#1b1f2a', border: '1px solid #2f3b52' }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#f5f7fb' }}>Chinni Jyothika</div>
+            <div style={{ color: '#c9d4f1' }}></div>
+          </div>
+          <div className="card" style={{ padding: '12px', borderRadius: 8, background: '#1b1f2a', border: '1px solid #2f3b52' }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#f5f7fb' }}>Harsha vardhan Botlagunta</div>
+            <div style={{ color: '#c9d4f1' }}></div>
+          </div>
+          <div className="card" style={{ padding: '12px', borderRadius: 8, background: '#1b1f2a', border: '1px solid #2f3b52' }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#f5f7fb' }}>Maganti Pranathi</div>
+            <div style={{ color: '#c9d4f1' }}></div>
+          </div>
+        </div>
+        <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px dashed #333' }}>
+          <div style={{ fontSize: 14, color: 'black' }}>Guide</div>
+          <div style={{ fontWeight: 700, fontSize: 16, color: 'black' }}>G. Naga Chandrika</div>
+        </div>
+      </div>
     </div>
   );
 }
