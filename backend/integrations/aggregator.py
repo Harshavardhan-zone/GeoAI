@@ -28,12 +28,17 @@ def compute_suitability_score(
 ) -> Dict[str, float]:
 	"""Combine factors into a single suitability score in [0, 100].
 
+	All inputs should already be normalized to 0-100 where HIGHER = BETTER for suitability.
+	
 	Assumptions:
-	- Higher rainfall_score means better suitability (0-100).
-	- Higher flood_risk_score means safer (invert if needed externally).
-	- Higher landslide_risk_score means safer.
-	- Higher soil_quality_score is better.
-	- Higher proximity_score (to roads/markets/water) is better.
+	- rainfall_score: higher = less rainfall = better (adapters return low scores for heavy rain)
+	- flood_risk_score: higher = safer (already inverted by adapters)
+	- landslide_risk_score: higher = safer (already inverted by adapters)
+	- soil_quality_score: higher = better
+	- proximity_score: higher = better (closer to roads/markets)
+	- water_proximity_score: higher = better (further from water = safer)
+	- pollution_score: higher = better (lower PM2.5 by adapters)
+	- landuse_score: higher = better (more compatible zoning)
 
 	Missing values are replaced with neutral 50.
 	Weights can be tuned later or made configurable.

@@ -153,8 +153,8 @@ def _reverse_check_on_water(lat: float, lon: float) -> bool:
             "format": "jsonv2",
             "lat": lat,
             "lon": lon,
-            "zoom": 18,
-            "addressdetails": 0,
+            "zoom": 0,  # Lower zoom to get broader feature context for oceans
+            "addressdetails": 1,
             "extratags": 1,
         }
         resp = requests.get(NOMINATIM_REVERSE_URL, params=params, headers=_DEFAULT_HEADERS, timeout=12)
@@ -163,6 +163,7 @@ def _reverse_check_on_water(lat: float, lon: float) -> bool:
         extra = data.get("extratags") or {}
         cls = data.get("class") or ""
         typ = data.get("type") or ""
+        addr = data.get("address", {})
 
         # Heuristics: treat as water if any of these indicate water/wetlands
         waterish_values = {
@@ -171,11 +172,24 @@ def _reverse_check_on_water(lat: float, lon: float) -> bool:
             str(extra.get("waterway", "")).lower(),
             str(extra.get("wetland", "")).lower(),
             str(extra.get("landuse", "")).lower(),
+            str(extra.get("place", "")).lower(),  # Add place for ocean/sea
         }
-        if any(v in {"water", "river", "stream", "reservoir", "pond", "lake", "lagoon", "basin", "canal", "riverbank", "wetland"} for v in waterish_values):
+        # Expanded to include ocean/sea/bay
+        water_types = {"water", "river", "stream", "reservoir", "pond", "lake", "lagoon", "basin", "canal", "riverbank", "wetland", "ocean", "sea", "bay"}
+        if any(v in water_types for v in waterish_values):
             return True
-        if cls in ("waterway", "natural") and typ in ("water", "river", "stream", "reservoir", "pond", "lake", "lagoon", "basin", "canal", "riverbank", "wetland"):
+        if cls in ("waterway", "natural", "place") and typ in water_types:
             return True
+        # Also check the display name for ocean/sea keywords
+        display_name = str(data.get("display_name", "")).lower()
+        if any(word in display_name for word in ["ocean", "sea", "bay", "gulf", "sound", "strait"]):
+            return True
+        # Check address components too (ocean/seas are often in address)
+        if addr:
+            for key, value in addr.items():
+                val_lower = str(value).lower()
+                if any(word in val_lower for word in ["ocean", "sea", "bay", "gulf", "sound", "strait"]):
+                    return True
     except Exception:
         return False
     return False
