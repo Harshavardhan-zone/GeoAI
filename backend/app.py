@@ -598,7 +598,7 @@ client, db, collection = get_mongo_connection()
 # Ingest Weather Data from Open-Meteo API (optional, uses sample if API fails)
 def ingest_weather_data(latitude=17.3850, longitude=78.4867, start_date="2024-01-01", end_date="2024-12-31"):
     try:
-        url = f"https://api.open-meteo.com/v1/history?latitude={latitude}&longitude={longitude}&start_date={start_date}&end_date={end_date}&daily=rainfall_sum"
+        url = f"https://api.open-meteo.com/v1/history   ?latitude={latitude}&longitude={longitude}&start_date={start_date}&end_date={end_date}&daily=rainfall_sum"
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         weather_data = response.json()
