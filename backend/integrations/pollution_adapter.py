@@ -28,8 +28,6 @@ def estimate_pollution_score(latitude: float, longitude: float) -> Optional[floa
 				break
 		if pm25 is None:
 			return None
-		# Map PM2.5 ug/m3 to score: lower better
-		# <10 => 90, 10-25 => 70, 25-50 => 50, >50 => 30
 		v = float(pm25)
 		if v < 10:
 			return 90.0

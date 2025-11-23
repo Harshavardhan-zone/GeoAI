@@ -54,4 +54,3 @@ def estimate_rainfall_score(latitude: float, longitude: float) -> Tuple[float, O
         score = 85.0
     return score, round(total_mm, 1)
 
-

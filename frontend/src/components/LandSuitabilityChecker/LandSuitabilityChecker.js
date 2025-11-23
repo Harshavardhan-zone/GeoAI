@@ -45,13 +45,13 @@ export default function LandSuitabilityChecker() {
   const [debug, setDebug] = useState(false);
   const [result, setResult] = useState(null);
 
-  // 🔖 Saved places (persisted in localStorage)
+  // Saved places (persisted in localStorage)
   const [savedPlaces, setSavedPlaces] = useState(() => {
     const stored = localStorage.getItem("savedPlaces");
     return stored ? JSON.parse(stored) : [];
   });
 
-  // 🌍 My Location button functionality
+  // My Location button functionality
   const handleMyLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation not supported by this browser.");
@@ -78,13 +78,12 @@ export default function LandSuitabilityChecker() {
     localStorage.setItem("savedPlaces", JSON.stringify(updated));
   };
 
-  // 🔁 Jump to a saved location
+  //  Jump to a saved location
   const handleSelectPlace = (place) => {
     setLat(place.lat);
     setLng(place.lng);
   };
 
-  // 🚀 Analyze button logic
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

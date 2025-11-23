@@ -8,7 +8,6 @@ def get_workspace_root() -> str:
 	Assumes the repo layout like: <workspace>/GeoAI/backend/integrations/paths.py
 	"""
 	current_dir = os.path.dirname(os.path.abspath(__file__))
-	# climb up: integrations -> backend -> GeoAI -> workspace
 	backend_dir = os.path.dirname(current_dir)
 	geoai_dir = os.path.dirname(backend_dir)
 	workspace_dir = os.path.dirname(geoai_dir)

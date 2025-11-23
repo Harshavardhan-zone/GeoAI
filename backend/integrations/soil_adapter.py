@@ -10,4 +10,3 @@ def estimate_soil_quality_score(latitude: float, longitude: float) -> Optional[f
 	random.seed(seed)
 	return float(round(40 + random.random() * 60, 2))
 
-

@@ -14,7 +14,6 @@ _HEADERS = {
 }
 
 def _build_roads_query(lat: float, lon: float, radius_m: int) -> str:
-	# Focus on major roads for accessibility signal
 	return f"""
 	[out:json][timeout:25];
 	(
@@ -58,7 +57,6 @@ def compute_proximity_score(latitude: float, longitude: float) -> Optional[float
 	Closer to major roads is considered better for access/markets.
 	Returns a score in [0, 100].
 	"""
-	# Try expanding search radii
 	elements = None
 	for radius in (1000, 3000, 6000):
 		data = _query_roads(latitude, longitude, radius)
@@ -92,5 +90,4 @@ def compute_proximity_score(latitude: float, longitude: float) -> Optional[float
 	else:
 		score = 45.0
 	return score
-
 

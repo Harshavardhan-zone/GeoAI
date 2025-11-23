@@ -23,7 +23,6 @@ def infer_landuse_score(latitude: float, longitude: float) -> Optional[float]:
 		js = resp.json()
 		if not js.get("elements"):
 			return None
-		# Simple heuristic based on landuse tag
 		best = None
 		for el in js["elements"]:
 			landuse = (el.get("tags") or {}).get("landuse")
