@@ -1,6 +1,4 @@
 from typing import Dict, Optional
-
-
 def _normalize_optional(value: Optional[float], default: float) -> float:
 	if value is None:
 		return default
@@ -13,8 +11,6 @@ def _normalize_optional(value: Optional[float], default: float) -> float:
 		return v
 	except Exception:
 		return default
-
-
 def compute_suitability_score(
 	*,
 	rainfall_score: Optional[float],
@@ -27,9 +23,7 @@ def compute_suitability_score(
 	landuse_score: Optional[float] = None,
 ) -> Dict[str, float]:
 	"""Combine factors into a single suitability score in [0, 100].
-
 	All inputs should already be normalized to 0-100 where HIGHER = BETTER for suitability.
-	
 	Assumptions:
 	- rainfall_score: higher = less rainfall = better (adapters return low scores for heavy rain)
 	- flood_risk_score: higher = safer (already inverted by adapters)
@@ -39,11 +33,9 @@ def compute_suitability_score(
 	- water_proximity_score: higher = better (further from water = safer)
 	- pollution_score: higher = better (lower PM2.5 by adapters)
 	- landuse_score: higher = better (more compatible zoning)
-
 	Missing values are replaced with neutral 50.
 	Weights can be tuned later or made configurable.
 	"""
-
 	# Replace None with neutral values
 	rainfall = _normalize_optional(rainfall_score, 50.0)
 	flood = _normalize_optional(flood_risk_score, 50.0)

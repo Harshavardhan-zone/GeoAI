@@ -282,7 +282,7 @@ export default function LandSuitabilityChecker() {
         </div>
         <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px dashed #333' }}>
           <div style={{ fontSize: 14, color: 'black' }}>Guide</div>
-          <div style={{ fontWeight: 700, fontSize: 16, color: 'black' }}>G. Naga Chandrika</div>
+          <div style={{ fontWeight: 700, fontSize: 16, color: 'black' }}>Dr. G.Naga Chandrika</div>
         </div>
       </div>
     </div>
